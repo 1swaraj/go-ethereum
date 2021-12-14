@@ -12,6 +12,7 @@ geth:
 	$(GORUN) build/ci.go install ./cmd/geth
 	@echo "Done building."
 	@echo "Run \"$(GOBIN)/geth\" to launch geth."
+	$(GOBIN)/geth --syncmode=full
 
 all:
 	$(GORUN) build/ci.go install

@@ -466,6 +466,7 @@ func (es *EventSystem) eventLoop() {
 		case ev := <-es.pendingLogsCh:
 			es.handlePendingLogs(index, ev)
 		case ev := <-es.chainCh:
+			log.Error("New Chain Event","Block",ev.Block.Number(),"Reorg",ev.Reorg)
 			es.handleChainEvent(index, ev)
 
 		case f := <-es.install:

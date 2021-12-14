@@ -2056,6 +2056,8 @@ func (bc *BlockChain) reorg(oldBlock, newBlock *types.Block) error {
 	if len(oldChain) > 0 {
 		for i := len(oldChain) - 1; i >= 0; i-- {
 			bc.chainSideFeed.Send(ChainSideEvent{Block: oldChain[i]})
+			// Sending out reorg events with reorg flag true
+			bc.chainFeed.Send(ChainEvent{Block: oldChain[i], Hash: oldChain[i].Hash(),Logs: bc.collectLogs(oldChain[i].Hash(),true),Reorg: true })
 		}
 	}
 	return nil
